@@ -15,1003 +15,534 @@
     --accent: #ff2d78;
     --text: #c8d6f0;
     --text-dim: #5a6a8a;
-    --glow: 0 0 30px #00f5ff55, 0 0 80px #00f5ff15;
-    --glow2: 0 0 30px #7b2fff55;
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  * { margin:0; padding:0; box-sizing:border-box; }
   body {
-    font-family: 'Rajdhani', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
+    font-family:'Rajdhani',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    overflow-x:hidden;
+    overflow-y:auto;
+    padding-bottom:40px;
+    position:relative;
   }
-
   body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
+    content:'';
+    position:fixed;
+    inset:0;
     background-image:
-      linear-gradient(rgba(0,245,255,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,245,255,0.025) 1px, transparent 1px);
-    background-size: 40px 40px;
-    animation: gridScroll 25s linear infinite;
-    pointer-events: none;
-    z-index: 0;
+      linear-gradient(rgba(0,245,255,0.025) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(0,245,255,0.025) 1px,transparent 1px);
+    background-size:40px 40px;
+    animation:gridScroll 25s linear infinite;
+    pointer-events:none;
+    z-index:0;
   }
-
-  @keyframes gridScroll {
-    from { transform: translateY(0); }
-    to { transform: translateY(40px); }
-  }
-
+  @keyframes gridScroll { from{transform:translateY(0)} to{transform:translateY(40px)} }
   .bg-glow {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(circle, rgba(123,47,255,0.07) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
+    position:fixed; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    width:700px; height:700px;
+    background:radial-gradient(circle,rgba(123,47,255,0.07) 0%,transparent 70%);
+    pointer-events:none; z-index:0;
   }
-
   .container {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 28px;
-    width: 100%;
-    max-width: 720px;
-    padding: 24px 20px;
+    position:relative; z-index:1;
+    display:flex; flex-direction:column;
+    align-items:center; gap:20px;
+    width:100%; max-width:720px;
+    padding:28px 20px;
   }
-
   /* HEADER */
-  .header { text-align: center; }
-
   .logo {
-    font-family: 'Orbitron', monospace;
-    font-size: 3.2rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, var(--nova) 0%, var(--nova2) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: 10px;
-    filter: drop-shadow(0 0 18px #00f5ff55);
+    font-family:'Orbitron',monospace; font-size:3rem; font-weight:900;
+    background:linear-gradient(135deg,var(--nova),var(--nova2));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    letter-spacing:10px; filter:drop-shadow(0 0 18px #00f5ff55);
   }
-
-  .tagline {
-    font-size: 0.78rem;
-    color: var(--nova2);
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    opacity: 0.75;
-    margin-top: 4px;
-  }
-
+  .tagline { font-size:0.78rem; color:var(--nova2); letter-spacing:5px; text-transform:uppercase; opacity:0.75; margin-top:4px; text-align:center; }
   /* ORB */
-  .orb-wrap {
-    position: relative;
-    width: 190px;
-    height: 190px;
-    cursor: pointer;
-  }
-
-  .orb-rings {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-  }
-
-  .ring {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid transparent;
-    animation: spin linear infinite;
-  }
-
-  .ring1 {
-    inset: 0;
-    border-color: rgba(0,245,255,0.3);
-    animation-duration: 8s;
-  }
-
-  .ring2 {
-    inset: 12px;
-    border-color: rgba(123,47,255,0.4);
-    border-top-color: var(--nova2);
-    animation-duration: 5s;
-    animation-direction: reverse;
-  }
-
-  .ring3 {
-    inset: 24px;
-    border-color: rgba(0,245,255,0.2);
-    border-right-color: var(--nova);
-    animation-duration: 12s;
-  }
-
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
+  .orb-wrap { position:relative; width:180px; height:180px; cursor:pointer; flex-shrink:0; }
+  .ring { position:absolute; border-radius:50%; border:1px solid transparent; animation:spin linear infinite; }
+  .ring1 { inset:0; border-color:rgba(0,245,255,0.3); animation-duration:8s; }
+  .ring2 { inset:12px; border-color:rgba(123,47,255,0.4); border-top-color:var(--nova2); animation-duration:5s; animation-direction:reverse; }
+  .ring3 { inset:24px; border-color:rgba(0,245,255,0.2); border-right-color:var(--nova); animation-duration:12s; }
+  @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
   .orb-core {
-    position: absolute;
-    inset: 36px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #1a0a3a, #050510);
-    border: 1.5px solid rgba(0,245,255,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 4px;
-    transition: all 0.3s ease;
-    box-shadow: var(--glow), inset 0 0 30px rgba(0,245,255,0.05);
+    position:absolute; inset:36px; border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#1a0a3a,#050510);
+    border:1.5px solid rgba(0,245,255,0.4);
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:4px;
+    transition:all 0.3s; box-shadow:0 0 30px #00f5ff33,inset 0 0 30px rgba(0,245,255,0.04);
   }
-
-  .orb-icon {
-    font-size: 2rem;
-    transition: all 0.3s;
-  }
-
-  .orb-label {
-    font-family: 'Orbitron', monospace;
-    font-size: 0.55rem;
-    letter-spacing: 2px;
-    color: var(--nova);
-    opacity: 0.7;
-  }
-
-  /* STATES */
-  .orb-wrap.listening .orb-core {
-    background: radial-gradient(circle at 35% 35%, #001a20, #050510);
-    border-color: var(--nova);
-    box-shadow: 0 0 40px #00f5ffaa, 0 0 100px #00f5ff22, inset 0 0 30px rgba(0,245,255,0.1);
-    animation: orbPulse 1.2s ease-in-out infinite;
-  }
-
-  .orb-wrap.thinking .orb-core {
-    border-color: var(--nova2);
-    box-shadow: 0 0 40px #7b2fffaa, 0 0 100px #7b2fff22;
-    animation: orbSpin 2s linear infinite;
-  }
-
-  .orb-wrap.speaking .orb-core {
-    border-color: var(--accent);
-    box-shadow: 0 0 40px #ff2d78aa;
-    animation: orbBeat 0.6s ease-in-out infinite;
-  }
-
-  @keyframes orbPulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 0 40px #00f5ffaa; }
-    50% { transform: scale(1.05); box-shadow: 0 0 60px #00f5ffcc; }
-  }
-
-  @keyframes orbSpin {
-    from { box-shadow: 0 0 40px #7b2fffaa; }
-    to { box-shadow: 0 0 60px #7b2fff88, 0 0 0 #7b2fff00; }
-  }
-
-  @keyframes orbBeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.04); }
-  }
-
+  .orb-icon { font-size:1.8rem; }
+  .orb-label { font-family:'Orbitron',monospace; font-size:0.5rem; letter-spacing:2px; color:var(--nova); opacity:0.7; }
+  .orb-wrap.listening .orb-core { border-color:var(--nova); box-shadow:0 0 40px #00f5ffaa,0 0 100px #00f5ff22; animation:orbPulse 1.2s ease-in-out infinite; }
+  .orb-wrap.thinking .orb-core { border-color:var(--nova2); box-shadow:0 0 40px #7b2fffaa; }
+  .orb-wrap.speaking .orb-core { border-color:var(--accent); box-shadow:0 0 40px #ff2d78aa; animation:orbBeat 0.6s ease-in-out infinite; }
+  @keyframes orbPulse { 0%,100%{transform:scale(1);box-shadow:0 0 40px #00f5ffaa} 50%{transform:scale(1.05);box-shadow:0 0 60px #00f5ffcc} }
+  @keyframes orbBeat { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
   /* WAVEFORM */
-  .waveform {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    height: 40px;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .waveform.active { opacity: 1; }
-
-  .wave-bar {
-    width: 3px;
-    background: linear-gradient(to top, var(--nova2), var(--nova));
-    border-radius: 2px;
-    animation: wave 1s ease-in-out infinite;
-    min-height: 4px;
-  }
-
-  .wave-bar:nth-child(1) { animation-delay: 0s; }
-  .wave-bar:nth-child(2) { animation-delay: 0.1s; }
-  .wave-bar:nth-child(3) { animation-delay: 0.2s; }
-  .wave-bar:nth-child(4) { animation-delay: 0.3s; }
-  .wave-bar:nth-child(5) { animation-delay: 0.4s; }
-  .wave-bar:nth-child(6) { animation-delay: 0.3s; }
-  .wave-bar:nth-child(7) { animation-delay: 0.2s; }
-  .wave-bar:nth-child(8) { animation-delay: 0.1s; }
-  .wave-bar:nth-child(9) { animation-delay: 0s; }
-
-  @keyframes wave {
-    0%, 100% { height: 6px; }
-    50% { height: 30px; }
-  }
-
+  .waveform { display:flex; align-items:center; gap:3px; height:36px; opacity:0; transition:opacity 0.3s; }
+  .waveform.active { opacity:1; }
+  .wave-bar { width:3px; background:linear-gradient(to top,var(--nova2),var(--nova)); border-radius:2px; animation:wave 1s ease-in-out infinite; min-height:4px; }
+  .wave-bar:nth-child(1){animation-delay:0s} .wave-bar:nth-child(2){animation-delay:0.1s} .wave-bar:nth-child(3){animation-delay:0.2s}
+  .wave-bar:nth-child(4){animation-delay:0.3s} .wave-bar:nth-child(5){animation-delay:0.4s} .wave-bar:nth-child(6){animation-delay:0.3s}
+  .wave-bar:nth-child(7){animation-delay:0.2s} .wave-bar:nth-child(8){animation-delay:0.1s} .wave-bar:nth-child(9){animation-delay:0s}
+  @keyframes wave { 0%,100%{height:6px} 50%{height:28px} }
   /* STATUS */
-  .status-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.85rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    min-height: 24px;
-    transition: all 0.3s;
+  .status-bar { display:flex; align-items:center; gap:8px; font-size:0.82rem; letter-spacing:2px; text-transform:uppercase; color:var(--text-dim); transition:all 0.3s; }
+  .status-dot { width:7px; height:7px; border-radius:50%; background:var(--text-dim); transition:all 0.3s; }
+  .status-bar.listening .status-dot { background:var(--nova); box-shadow:0 0 8px var(--nova); }
+  .status-bar.listening { color:var(--nova); }
+  .status-bar.thinking .status-dot { background:var(--nova2); box-shadow:0 0 8px var(--nova2); animation:blink 0.8s infinite; }
+  .status-bar.thinking { color:var(--nova2); }
+  .status-bar.speaking .status-dot { background:var(--accent); box-shadow:0 0 8px var(--accent); }
+  .status-bar.speaking { color:var(--accent); }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  /* BOXES */
+  .info-box { width:100%; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 18px; position:relative; }
+  .box-label { font-family:'Orbitron',monospace; font-size:0.48rem; letter-spacing:3px; opacity:0.5; margin-bottom:8px; }
+  .box-label.you { color:var(--nova); } .box-label.nova-lbl { color:var(--nova2); }
+  .box-text { font-size:0.98rem; line-height:1.5; color:var(--text); min-height:22px; }
+  /* TEXT INPUT */
+  .text-section { width:100%; display:flex; flex-direction:column; gap:8px; }
+  .input-mode-label { font-family:'Orbitron',monospace; font-size:0.54rem; letter-spacing:3px; color:var(--nova2); text-transform:uppercase; opacity:0.7; text-align:center; }
+  .text-row { display:flex; gap:10px; align-items:flex-end; }
+  .text-input {
+    flex:1; background:var(--surface); border:1px solid var(--border); border-radius:10px;
+    color:var(--text); font-family:'Rajdhani',sans-serif; font-size:1rem;
+    padding:12px 16px; outline:none; resize:none; transition:border-color 0.2s,box-shadow 0.2s;
+    line-height:1.4; min-height:48px; max-height:120px;
   }
-
-  .status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--text-dim);
-    transition: all 0.3s;
+  .text-input:focus { border-color:var(--nova); box-shadow:0 0 12px rgba(0,245,255,0.15); }
+  .text-input::placeholder { color:var(--text-dim); opacity:0.5; }
+  .send-btn {
+    background:linear-gradient(135deg,var(--nova2),#5a1fcc); border:none; border-radius:10px;
+    color:white; font-size:1.3rem; width:48px; height:48px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:all 0.2s; flex-shrink:0; box-shadow:0 0 15px rgba(123,47,255,0.4);
   }
-
-  .status-bar.listening .status-dot { background: var(--nova); box-shadow: 0 0 8px var(--nova); }
-  .status-bar.listening { color: var(--nova); }
-  .status-bar.thinking .status-dot { background: var(--nova2); box-shadow: 0 0 8px var(--nova2); animation: blink 0.8s infinite; }
-  .status-bar.thinking { color: var(--nova2); }
-  .status-bar.speaking .status-dot { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
-  .status-bar.speaking { color: var(--accent); }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-
-  /* TRANSCRIPT */
-  .transcript-box {
-    width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px 20px;
-    min-height: 60px;
-    font-size: 1rem;
-    letter-spacing: 0.5px;
-    line-height: 1.5;
-    color: var(--text);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .transcript-box::before {
-    content: 'YOU';
-    position: absolute;
-    top: 8px;
-    left: 14px;
-    font-family: 'Orbitron', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 3px;
-    color: var(--nova);
-    opacity: 0.5;
-  }
-
-  .transcript-text {
-    margin-top: 10px;
-    min-height: 24px;
-    color: var(--text);
-  }
-
-  /* RESPONSE */
-  .response-box {
-    width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px 20px;
-    min-height: 80px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .response-box::before {
-    content: 'NOVA';
-    position: absolute;
-    top: 8px;
-    left: 14px;
-    font-family: 'Orbitron', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 3px;
-    color: var(--nova2);
-    opacity: 0.6;
-  }
-
-  .response-text {
-    margin-top: 10px;
-    font-size: 1rem;
-    line-height: 1.6;
-    letter-spacing: 0.3px;
-    color: var(--text);
-    min-height: 24px;
-  }
-
+  .send-btn:hover { transform:scale(1.05); box-shadow:0 0 25px rgba(123,47,255,0.6); }
+  /* DIVIDER */
+  .divider { width:100%; display:flex; align-items:center; gap:12px; color:var(--text-dim); font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; }
+  .divider::before,.divider::after { content:''; flex:1; height:1px; background:var(--border); }
   /* CONTROLS */
-  .controls {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .btn {
-    font-family: 'Orbitron', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 2px;
-    padding: 10px 20px;
-    border-radius: 6px;
-    border: 1px solid;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-transform: uppercase;
-    background: transparent;
-  }
-
-  .btn-primary {
-    border-color: var(--nova);
-    color: var(--nova);
-  }
-
-  .btn-primary:hover {
-    background: rgba(0,245,255,0.1);
-    box-shadow: 0 0 15px rgba(0,245,255,0.3);
-  }
-
-  .btn-danger {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  .btn-danger:hover {
-    background: rgba(255,45,120,0.1);
-  }
-
-  .btn-muted {
-    border-color: var(--border);
-    color: var(--text-dim);
-    font-size: 0.6rem;
-  }
-
-  .btn-muted:hover {
-    border-color: var(--text-dim);
-    color: var(--text);
-  }
-
-  /* API SETUP */
-  .setup-panel {
-    width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .setup-title {
-    font-family: 'Orbitron', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    color: var(--nova2);
-    text-transform: uppercase;
-  }
-
-  .input-row {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .input-label {
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-  }
-
-  .api-input {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text);
-    font-family: 'Rajdhani', monospace;
-    font-size: 0.9rem;
-    padding: 10px 14px;
-    width: 100%;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .api-input:focus {
-    border-color: var(--nova);
-    box-shadow: 0 0 10px rgba(0,245,255,0.15);
-  }
-
-  .api-input::placeholder { color: var(--text-dim); opacity: 0.5; }
-
-  .setup-hint {
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    line-height: 1.5;
-  }
-
-  .setup-hint a { color: var(--nova); text-decoration: none; }
-
-  /* COMMANDS HINT */
-  .commands-grid {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 8px;
-  }
-
-  .cmd-chip {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 0.78rem;
-    color: var(--text-dim);
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .cmd-chip span:first-child { font-size: 1rem; }
-
-  /* WAKE WORD BADGE */
-  .wake-badge {
-    background: rgba(0,245,255,0.05);
-    border: 1px solid rgba(0,245,255,0.2);
-    border-radius: 20px;
-    padding: 6px 16px;
-    font-family: 'Orbitron', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 3px;
-    color: var(--nova);
-    opacity: 0.7;
-  }
-
-  /* SCROLLBAR */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .controls { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+  .btn { font-family:'Orbitron',monospace; font-size:0.6rem; letter-spacing:2px; padding:9px 18px; border-radius:6px; border:1px solid; cursor:pointer; transition:all 0.2s; text-transform:uppercase; background:transparent; }
+  .btn-primary { border-color:var(--nova); color:var(--nova); }
+  .btn-primary:hover { background:rgba(0,245,255,0.1); box-shadow:0 0 15px rgba(0,245,255,0.3); }
+  .btn-danger { border-color:var(--accent); color:var(--accent); }
+  .btn-danger:hover { background:rgba(255,45,120,0.1); }
+  .btn-muted { border-color:var(--border); color:var(--text-dim); font-size:0.58rem; }
+  .btn-muted:hover { border-color:var(--text-dim); color:var(--text); }
+  /* SETUP */
+  .setup-panel { width:100%; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; display:flex; flex-direction:column; gap:14px; }
+  .setup-title { font-family:'Orbitron',monospace; font-size:0.68rem; letter-spacing:3px; color:var(--nova2); text-transform:uppercase; }
+  .input-row { display:flex; flex-direction:column; gap:6px; }
+  .input-label { font-size:0.73rem; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase; }
+  .api-input { background:var(--bg); border:1px solid var(--border); border-radius:6px; color:var(--text); font-family:'Rajdhani',sans-serif; font-size:0.9rem; padding:10px 14px; width:100%; outline:none; transition:border-color 0.2s; }
+  .api-input:focus { border-color:var(--nova); box-shadow:0 0 10px rgba(0,245,255,0.12); }
+  .api-input::placeholder { color:var(--text-dim); opacity:0.5; }
+  .setup-hint { font-size:0.73rem; color:var(--text-dim); line-height:1.5; }
+  .setup-hint a { color:var(--nova); text-decoration:none; }
+  .voice-select { background:var(--bg); border:1px solid var(--border); border-radius:6px; color:var(--text); font-family:'Rajdhani',sans-serif; font-size:0.9rem; padding:10px 14px; width:100%; outline:none; cursor:pointer; }
+  .voice-select:focus { border-color:var(--nova); }
+  /* COMMANDS */
+  .commands-grid { width:100%; display:grid; grid-template-columns:repeat(auto-fit,minmax(148px,1fr)); gap:7px; }
+  .cmd-chip { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:7px 11px; font-size:0.76rem; color:var(--text-dim); display:flex; align-items:center; gap:7px; }
+  .wake-badge { background:rgba(0,245,255,0.05); border:1px solid rgba(0,245,255,0.2); border-radius:20px; padding:5px 14px; font-family:'Orbitron',monospace; font-size:0.58rem; letter-spacing:3px; color:var(--nova); opacity:0.65; }
+  ::-webkit-scrollbar { width:4px; }
+  ::-webkit-scrollbar-track { background:var(--bg); }
+  ::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
 </style>
 </head>
 <body>
 <div class="bg-glow"></div>
-
 <div class="container">
 
-  <!-- HEADER -->
-  <div class="header">
+  <div style="text-align:center">
     <div class="logo">NOVA</div>
     <div class="tagline">AI · Voice · Assistant</div>
   </div>
 
-  <!-- ORB -->
   <div class="orb-wrap" id="orb" onclick="toggleListen()">
-    <div class="orb-rings">
-      <div class="ring ring1"></div>
-      <div class="ring ring2"></div>
-      <div class="ring ring3"></div>
-    </div>
+    <div class="ring ring1"></div>
+    <div class="ring ring2"></div>
+    <div class="ring ring3"></div>
     <div class="orb-core">
       <div class="orb-icon" id="orbIcon">🎙️</div>
       <div class="orb-label" id="orbLabel">TAP</div>
     </div>
   </div>
 
-  <!-- WAVEFORM -->
   <div class="waveform" id="waveform">
-    <div class="wave-bar" style="height:8px"></div>
-    <div class="wave-bar" style="height:16px"></div>
-    <div class="wave-bar" style="height:24px"></div>
-    <div class="wave-bar" style="height:30px"></div>
-    <div class="wave-bar" style="height:24px"></div>
-    <div class="wave-bar" style="height:30px"></div>
-    <div class="wave-bar" style="height:20px"></div>
-    <div class="wave-bar" style="height:14px"></div>
-    <div class="wave-bar" style="height:8px"></div>
+    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
   </div>
 
-  <!-- STATUS -->
   <div class="status-bar" id="statusBar">
     <div class="status-dot"></div>
     <span id="statusText">Tap orb or say "Hey Nova"</span>
   </div>
 
-  <!-- WAKE WORD BADGE -->
-  <div class="wake-badge" id="wakeBadge">WAKE WORD: HEY NOVA</div>
+  <div class="wake-badge">WAKE WORD : HEY NOVA</div>
 
-  <!-- TRANSCRIPT -->
-  <div class="transcript-box">
-    <div class="transcript-text" id="transcript">Waiting for your voice...</div>
+  <div class="info-box">
+    <div class="box-label you">YOU</div>
+    <div class="box-text" id="transcript">Waiting for your voice or message...</div>
   </div>
 
-  <!-- RESPONSE -->
-  <div class="response-box">
-    <div class="response-text" id="responseText">Nova is ready. How can I help you?</div>
+  <div class="info-box">
+    <div class="box-label nova-lbl">NOVA</div>
+    <div class="box-text" id="responseText">Nova is ready. How can I help you?</div>
   </div>
 
-  <!-- CONTROLS -->
+  <div class="divider">or type below</div>
+
+  <div class="text-section">
+    <div class="input-mode-label">⌨ Type to Nova (Enter to send)</div>
+    <div class="text-row">
+      <textarea class="text-input" id="textInput" placeholder="Kuch bhi likho... Nova baat karega 🎙️" rows="1"></textarea>
+      <button class="send-btn" onclick="sendTextMessage()">➤</button>
+    </div>
+  </div>
+
   <div class="controls">
-    <button class="btn btn-primary" onclick="toggleListen()" id="mainBtn">🎙️ START</button>
+    <button class="btn btn-primary" onclick="toggleListen()" id="mainBtn">🎙️ VOICE</button>
     <button class="btn btn-danger" onclick="stopAll()">⏹ STOP</button>
     <button class="btn btn-muted" onclick="toggleSetup()">⚙ SETTINGS</button>
   </div>
 
-  <!-- API SETUP -->
   <div class="setup-panel" id="setupPanel" style="display:none">
-    <div class="setup-title">⚙ API Configuration</div>
+    <div class="setup-title">⚙ Configuration</div>
 
     <div class="input-row">
       <div class="input-label">Groq API Key (Primary)</div>
       <input class="api-input" type="password" id="groqKey" placeholder="gsk_..." />
-      <div class="setup-hint">Free at <a href="https://console.groq.com" target="_blank">console.groq.com</a></div>
+      <div class="setup-hint">
+        Free at <a href="https://console.groq.com" target="_blank">console.groq.com</a>
+        → Login → Left sidebar → "API Keys" → "Create API Key"
+      </div>
     </div>
 
     <div class="input-row">
       <div class="input-label">OpenRouter API Key (Backup)</div>
       <input class="api-input" type="password" id="orKey" placeholder="sk-or-..." />
-      <div class="setup-hint">Free at <a href="https://openrouter.ai" target="_blank">openrouter.ai</a></div>
+      <div class="setup-hint">Free at <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a></div>
     </div>
 
     <div class="input-row">
-      <div class="input-label">Nova's Personality (System Prompt)</div>
-      <textarea class="api-input" id="sysPrompt" rows="3" style="resize:vertical">You are Nova, a smart and friendly AI voice assistant. Keep your replies short, clear and conversational — they will be spoken aloud. Respond in the same language the user speaks (Hindi, English, or Hinglish). For commands like opening websites, just say you're doing it. Be helpful, witty, and warm.</textarea>
+      <div class="input-label">Nova's Voice 🎙️</div>
+      <select class="voice-select" id="voiceSelect" onchange="previewVoice()">
+        <option>Loading voices...</option>
+      </select>
+      <div class="setup-hint">Chrome mein <strong style="color:var(--nova)">Google UK English Female</strong> best female voice hai!</div>
     </div>
 
-    <button class="btn btn-primary" onclick="saveSettings()">💾 SAVE</button>
+    <div class="input-row">
+      <div class="input-label">Nova's Personality</div>
+      <textarea class="api-input" id="sysPrompt" rows="3" style="resize:vertical">You are Nova, a smart and friendly AI voice assistant. Keep replies short and conversational — they will be spoken aloud. Respond in the same language the user uses (Hindi, English, or Hinglish). Be warm, witty, and helpful.</textarea>
+    </div>
+
+    <button class="btn btn-primary" onclick="saveSettings()" style="width:100%;padding:12px">💾 SAVE SETTINGS</button>
   </div>
 
-  <!-- COMMANDS HINT -->
   <div class="commands-grid">
-    <div class="cmd-chip"><span>🌐</span> "Open YouTube"</div>
-    <div class="cmd-chip"><span>🔍</span> "Search for AI news"</div>
-    <div class="cmd-chip"><span>📧</span> "Open Gmail"</div>
-    <div class="cmd-chip"><span>🗓️</span> "Open Calendar"</div>
-    <div class="cmd-chip"><span>🎵</span> "Open Spotify"</div>
-    <div class="cmd-chip"><span>🧮</span> "Open Calculator"</div>
-    <div class="cmd-chip"><span>🗺️</span> "Open Maps"</div>
-    <div class="cmd-chip"><span>💬</span> "What is AI?"</div>
+    <div class="cmd-chip"><span>🌐</span>"Open YouTube"</div>
+    <div class="cmd-chip"><span>🔍</span>"Search for..."</div>
+    <div class="cmd-chip"><span>▶️</span>"Play ... on YouTube"</div>
+    <div class="cmd-chip"><span>📧</span>"Open Gmail"</div>
+    <div class="cmd-chip"><span>🎵</span>"Open Spotify"</div>
+    <div class="cmd-chip"><span>🗺️</span>"Open Maps"</div>
+    <div class="cmd-chip"><span>🕐</span>"What's the time?"</div>
+    <div class="cmd-chip"><span>💬</span>Ask anything!</div>
   </div>
 
 </div>
-
 <script>
-// ─── STATE ─────────────────────────────────────────────────────────────────
+let settings = {
+  groqKey: localStorage.getItem('nova_groq')||'',
+  orKey:   localStorage.getItem('nova_or')||'',
+  sysPrompt: localStorage.getItem('nova_sys')||'You are Nova, a smart and friendly AI voice assistant. Keep replies short and conversational — they will be spoken aloud. Respond in the same language the user uses (Hindi, English, or Hinglish). Be warm, witty, and helpful.',
+  voiceName: localStorage.getItem('nova_voice')||''
+};
+
+let selectedVoice = null;
 let isListening = false;
 let recognition = null;
-let synth = window.speechSynthesis;
-let currentUtterance = null;
-let wakeWordRecognition = null;
-let wakeWordActive = false;
-let settings = {
-  groqKey: localStorage.getItem('nova_groq') || '',
-  orKey: localStorage.getItem('nova_or') || '',
-  sysPrompt: localStorage.getItem('nova_sys') || 'You are Nova, a smart and friendly AI voice assistant. Keep your replies short, clear and conversational — they will be spoken aloud. Respond in the same language the user speaks (Hindi, English, or Hinglish). For commands like opening websites, just say you\'re doing it. Be helpful, witty, and warm.'
-};
+let wakeRecog = null;
+const synth = window.speechSynthesis;
 
-// Load saved keys into inputs
 window.onload = () => {
   document.getElementById('groqKey').value = settings.groqKey;
-  document.getElementById('orKey').value = settings.orKey;
+  document.getElementById('orKey').value   = settings.orKey;
   document.getElementById('sysPrompt').value = settings.sysPrompt;
+  synth.onvoiceschanged = loadVoices;
+  loadVoices();
   startWakeWord();
+  setupTextarea();
 };
 
-// ─── UI HELPERS ─────────────────────────────────────────────────────────────
-function setStatus(state, text) {
-  const bar = document.getElementById('statusBar');
-  const txt = document.getElementById('statusText');
-  const orb = document.getElementById('orb');
-  const icon = document.getElementById('orbIcon');
-  const label = document.getElementById('orbLabel');
-  const wave = document.getElementById('waveform');
-  const btn = document.getElementById('mainBtn');
-
-  bar.className = 'status-bar ' + state;
-  txt.textContent = text;
-  orb.className = 'orb-wrap ' + state;
-
-  if (state === 'listening') {
-    icon.textContent = '👂';
-    label.textContent = 'LISTENING';
-    wave.className = 'waveform active';
-    btn.textContent = '⏹ STOP';
-  } else if (state === 'thinking') {
-    icon.textContent = '🤔';
-    label.textContent = 'THINKING';
-    wave.className = 'waveform';
-    btn.textContent = '🎙️ START';
-  } else if (state === 'speaking') {
-    icon.textContent = '🔊';
-    label.textContent = 'SPEAKING';
-    wave.className = 'waveform active';
-    btn.textContent = '🎙️ START';
-  } else {
-    icon.textContent = '🎙️';
-    label.textContent = 'TAP';
-    wave.className = 'waveform';
-    btn.textContent = '🎙️ START';
+// VOICES
+function loadVoices() {
+  const voices = synth.getVoices();
+  if (!voices.length) return;
+  const sel = document.getElementById('voiceSelect');
+  sel.innerHTML = '';
+  const preferred = ['Google UK English Female','Google US English','Microsoft Zira','Samantha','Karen','Victoria','Moira','Veena'];
+  const sorted = [...voices].sort((a,b) => {
+    const ai = preferred.findIndex(p=>a.name.includes(p));
+    const bi = preferred.findIndex(p=>b.name.includes(p));
+    if(ai!==-1&&bi!==-1) return ai-bi;
+    if(ai!==-1) return -1; if(bi!==-1) return 1;
+    return (/female|woman/i.test(a.name)?-1:0) - (/female|woman/i.test(b.name)?-1:0);
+  });
+  sorted.forEach(v => {
+    const o = document.createElement('option');
+    o.value = v.name;
+    o.textContent = v.name + ' (' + v.lang + ')';
+    if (v.name === settings.voiceName) o.selected = true;
+    sel.appendChild(o);
+  });
+  if (!settings.voiceName) {
+    const best = sorted.find(v => preferred.some(p=>v.name.includes(p)) || /female|woman/i.test(v.name));
+    if (best) sel.value = best.name;
   }
+  updateVoice();
 }
 
-function showTranscript(text) {
-  document.getElementById('transcript').textContent = text;
+function updateVoice() {
+  const name = document.getElementById('voiceSelect').value;
+  selectedVoice = synth.getVoices().find(v=>v.name===name)||null;
 }
 
-function showResponse(text) {
-  document.getElementById('responseText').textContent = text;
+function previewVoice() {
+  updateVoice();
+  const utt = new SpeechSynthesisUtterance('Hi! I am Nova, your assistant.');
+  utt.lang='en-IN'; utt.rate=0.95; utt.pitch=1.15;
+  if(selectedVoice) utt.voice = selectedVoice;
+  synth.cancel(); synth.speak(utt);
 }
 
-// ─── SETTINGS ───────────────────────────────────────────────────────────────
+// SETTINGS
 function toggleSetup() {
-  const panel = document.getElementById('setupPanel');
-  panel.style.display = panel.style.display === 'none' ? 'flex' : 'none';
+  const p = document.getElementById('setupPanel');
+  p.style.display = p.style.display==='none' ? 'flex' : 'none';
+  if(p.style.display==='flex') loadVoices();
 }
 
 function saveSettings() {
-  settings.groqKey = document.getElementById('groqKey').value.trim();
-  settings.orKey = document.getElementById('orKey').value.trim();
+  settings.groqKey   = document.getElementById('groqKey').value.trim();
+  settings.orKey     = document.getElementById('orKey').value.trim();
   settings.sysPrompt = document.getElementById('sysPrompt').value.trim();
-  localStorage.setItem('nova_groq', settings.groqKey);
-  localStorage.setItem('nova_or', settings.orKey);
-  localStorage.setItem('nova_sys', settings.sysPrompt);
+  settings.voiceName = document.getElementById('voiceSelect').value;
+  localStorage.setItem('nova_groq',  settings.groqKey);
+  localStorage.setItem('nova_or',    settings.orKey);
+  localStorage.setItem('nova_sys',   settings.sysPrompt);
+  localStorage.setItem('nova_voice', settings.voiceName);
+  updateVoice();
   document.getElementById('setupPanel').style.display = 'none';
-  speak('Settings saved. I am ready!');
+  speak('Settings saved! I am ready.');
 }
 
-// ─── WAKE WORD ───────────────────────────────────────────────────────────────
-function startWakeWord() {
-  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) return;
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  wakeWordRecognition = new SR();
-  wakeWordRecognition.continuous = true;
-  wakeWordRecognition.interimResults = false;
-  wakeWordRecognition.lang = 'en-IN';
+// UI
+function setStatus(state, text) {
+  document.getElementById('statusBar').className = 'status-bar '+state;
+  document.getElementById('statusText').textContent = text;
+  document.getElementById('orb').className = 'orb-wrap '+state;
+  const icons = {listening:['👂','LISTEN'],thinking:['🤔','THINK'],speaking:['🔊','SPEAK'],'':['🎙️','TAP']};
+  const [ic,lb] = icons[state]||['🎙️','TAP'];
+  document.getElementById('orbIcon').textContent = ic;
+  document.getElementById('orbLabel').textContent = lb;
+  document.getElementById('waveform').className = 'waveform'+(state==='listening'||state==='speaking'?' active':'');
+}
 
-  wakeWordRecognition.onresult = (e) => {
-    const said = e.results[e.results.length - 1][0].transcript.toLowerCase().trim();
-    if (said.includes('hey nova') || said.includes('hi nova') || said.includes('ok nova')) {
-      wakeWordRecognition.stop();
-      wakeWordActive = false;
+// TEXTAREA AUTO RESIZE
+function setupTextarea() {
+  const ta = document.getElementById('textInput');
+  ta.addEventListener('input', () => {
+    ta.style.height='auto';
+    ta.style.height = Math.min(ta.scrollHeight,120)+'px';
+  });
+  ta.addEventListener('keydown', e => {
+    if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendTextMessage(); }
+  });
+}
+
+function sendTextMessage() {
+  const ta = document.getElementById('textInput');
+  const text = ta.value.trim();
+  if(!text) return;
+  ta.value=''; ta.style.height='auto';
+  document.getElementById('transcript').textContent = text;
+  stopSpeaking();
+  processCommand(text);
+}
+
+// WAKE WORD
+function startWakeWord() {
+  if(!('webkitSpeechRecognition' in window||'SpeechRecognition' in window)) return;
+  const SR = window.SpeechRecognition||window.webkitSpeechRecognition;
+  wakeRecog = new SR();
+  wakeRecog.continuous=true; wakeRecog.interimResults=false; wakeRecog.lang='en-IN';
+  wakeRecog.onresult = e => {
+    const said = e.results[e.results.length-1][0].transcript.toLowerCase();
+    if(said.includes('hey nova')||said.includes('hi nova')||said.includes('ok nova')){
+      try{wakeRecog.stop()}catch(e2){}
       startListening();
     }
   };
-
-  wakeWordRecognition.onend = () => {
-    if (!isListening) {
-      wakeWordActive = false;
-      setTimeout(startWakeWord, 1000);
-    }
-  };
-
-  try {
-    wakeWordRecognition.start();
-    wakeWordActive = true;
-  } catch(e) {}
+  wakeRecog.onend = () => { if(!isListening) setTimeout(startWakeWord,1200); };
+  try{wakeRecog.start()}catch(e){}
 }
 
-// ─── SPEECH RECOGNITION ─────────────────────────────────────────────────────
-function toggleListen() {
-  if (isListening) {
-    stopListening();
-  } else {
-    startListening();
-  }
-}
+// VOICE
+function toggleListen() { isListening ? stopListening() : startListening(); }
 
 function startListening() {
-  if (isListening) return;
-  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-    setStatus('', 'Speech recognition not supported in this browser');
+  if(isListening) return;
+  if(!('webkitSpeechRecognition' in window||'SpeechRecognition' in window)){
+    document.getElementById('responseText').textContent='⚠️ Chrome browser use karo speech ke liye!';
     return;
   }
-
   stopSpeaking();
-  if (wakeWordRecognition) { try { wakeWordRecognition.stop(); } catch(e) {} }
-
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  try{if(wakeRecog)wakeRecog.stop()}catch(e){}
+  const SR = window.SpeechRecognition||window.webkitSpeechRecognition;
   recognition = new SR();
-  recognition.lang = 'en-IN';
-  recognition.interimResults = true;
-  recognition.maxAlternatives = 1;
-  recognition.continuous = false;
-
-  recognition.onstart = () => {
-    isListening = true;
-    setStatus('listening', 'Listening...');
-    showTranscript('Speak now...');
-  };
-
-  recognition.onresult = (e) => {
-    let interim = '', final = '';
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      const t = e.results[i][0].transcript;
-      if (e.results[i].isFinal) final += t;
-      else interim += t;
+  recognition.lang='en-IN'; recognition.interimResults=true; recognition.maxAlternatives=1;
+  recognition.onstart = () => { isListening=true; setStatus('listening','Listening...'); document.getElementById('transcript').textContent='Speak now...'; };
+  recognition.onresult = e => {
+    let interim='',final='';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      const t=e.results[i][0].transcript;
+      e.results[i].isFinal?(final+=t):(interim+=t);
     }
-    showTranscript(final || interim);
-    if (final) {
-      isListening = false;
-      processCommand(final.trim());
-    }
+    document.getElementById('transcript').textContent = final||interim;
+    if(final){ isListening=false; processCommand(final.trim()); }
   };
-
-  recognition.onerror = (e) => {
-    isListening = false;
-    setStatus('', 'Error: ' + e.error + '. Try again.');
-    setTimeout(startWakeWord, 1000);
-  };
-
-  recognition.onend = () => {
-    isListening = false;
-    if (!document.getElementById('transcript').textContent.includes('...')) {
-      setTimeout(startWakeWord, 1000);
-    }
-  };
-
+  recognition.onerror = e => { isListening=false; setStatus('','Error: '+e.error); setTimeout(startWakeWord,1000); };
+  recognition.onend  = () => { isListening=false; setTimeout(startWakeWord,1000); };
   recognition.start();
 }
 
 function stopListening() {
-  if (recognition) { try { recognition.stop(); } catch(e) {} }
-  isListening = false;
-  setStatus('', 'Tap orb or say "Hey Nova"');
-  setTimeout(startWakeWord, 1000);
+  try{if(recognition)recognition.stop()}catch(e){}
+  isListening=false; setStatus('','Tap orb or say "Hey Nova"'); setTimeout(startWakeWord,1000);
 }
 
-function stopAll() {
-  stopListening();
-  stopSpeaking();
-  setStatus('', 'Stopped. Tap orb or say "Hey Nova"');
-  setTimeout(startWakeWord, 1500);
-}
+function stopAll() { stopListening(); stopSpeaking(); setStatus('','Stopped.'); setTimeout(startWakeWord,1500); }
 
-// ─── COMMAND PROCESSOR ──────────────────────────────────────────────────────
+// COMMANDS
 const COMMANDS = [
-  { patterns: ['youtube'], action: () => openSite('https://youtube.com', 'Opening YouTube') },
-  { patterns: ['google'], action: () => openSite('https://google.com', 'Opening Google') },
-  { patterns: ['gmail'], action: () => openSite('https://gmail.com', 'Opening Gmail') },
-  { patterns: ['whatsapp'], action: () => openSite('https://web.whatsapp.com', 'Opening WhatsApp') },
-  { patterns: ['instagram'], action: () => openSite('https://instagram.com', 'Opening Instagram') },
-  { patterns: ['twitter', 'x.com'], action: () => openSite('https://twitter.com', 'Opening Twitter') },
-  { patterns: ['facebook'], action: () => openSite('https://facebook.com', 'Opening Facebook') },
-  { patterns: ['spotify'], action: () => openSite('https://open.spotify.com', 'Opening Spotify') },
-  { patterns: ['maps', 'google maps'], action: () => openSite('https://maps.google.com', 'Opening Google Maps') },
-  { patterns: ['github'], action: () => openSite('https://github.com', 'Opening GitHub') },
-  { patterns: ['netflix'], action: () => openSite('https://netflix.com', 'Opening Netflix') },
-  { patterns: ['calculator'], action: () => openSite('https://www.calculator.net', 'Opening Calculator') },
-  { patterns: ['notepad', 'notes'], action: () => openSite('https://notion.so', 'Opening Notes') },
-  { patterns: ['translate'], action: () => openSite('https://translate.google.com', 'Opening Google Translate') },
-  { patterns: ['weather'], action: () => openSite('https://weather.com', 'Opening Weather') },
-  { patterns: ['news'], action: () => openSite('https://news.google.com', 'Opening Google News') },
-  {
-    patterns: ['search for', 'search'],
-    action: (text) => {
-      const query = text.replace(/search for|search/gi, '').trim();
-      openSite('https://www.google.com/search?q=' + encodeURIComponent(query), 'Searching for ' + query);
-    }
-  },
-  {
-    patterns: ['play', 'youtube search'],
-    action: (text) => {
-      const query = text.replace(/play|on youtube/gi, '').trim();
-      openSite('https://www.youtube.com/results?search_query=' + encodeURIComponent(query), 'Playing ' + query + ' on YouTube');
-    }
-  },
-  { patterns: ['time', "what's the time", 'what time is it'], action: () => {
-    const t = new Date().toLocaleTimeString('en-IN');
-    speak('The current time is ' + t);
-    showResponse('Current time: ' + t);
-  }},
-  { patterns: ['date', "what's the date", 'what is today'], action: () => {
-    const d = new Date().toLocaleDateString('en-IN', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-    speak('Today is ' + d);
-    showResponse('Today: ' + d);
-  }},
-  { patterns: ['stop', 'shut up', 'quiet', 'silence'], action: () => {
-    stopSpeaking();
-    showResponse('Okay, stopping.');
-  }},
+  {p:['youtube'],       a:()=>open2('https://youtube.com','Opening YouTube')},
+  {p:['google'],        a:()=>open2('https://google.com','Opening Google')},
+  {p:['gmail'],         a:()=>open2('https://gmail.com','Opening Gmail')},
+  {p:['whatsapp'],      a:()=>open2('https://web.whatsapp.com','Opening WhatsApp')},
+  {p:['instagram'],     a:()=>open2('https://instagram.com','Opening Instagram')},
+  {p:['twitter','x.com'],a:()=>open2('https://twitter.com','Opening Twitter')},
+  {p:['facebook'],      a:()=>open2('https://facebook.com','Opening Facebook')},
+  {p:['spotify'],       a:()=>open2('https://open.spotify.com','Opening Spotify')},
+  {p:['maps'],          a:()=>open2('https://maps.google.com','Opening Maps')},
+  {p:['github'],        a:()=>open2('https://github.com','Opening GitHub')},
+  {p:['netflix'],       a:()=>open2('https://netflix.com','Opening Netflix')},
+  {p:['calculator'],    a:()=>open2('https://www.desmos.com/scientific','Opening Calculator')},
+  {p:['translate'],     a:()=>open2('https://translate.google.com','Opening Translate')},
+  {p:['weather'],       a:()=>open2('https://weather.com','Opening Weather')},
+  {p:['news'],          a:()=>open2('https://news.google.com','Opening News')},
+  {p:['chatgpt'],       a:()=>open2('https://chat.openai.com','Opening ChatGPT')},
+  {p:['play'],          a:t=>{ const q=t.replace(/play|on youtube/gi,'').trim(); open2('https://www.youtube.com/results?search_query='+encodeURIComponent(q),'Playing '+q); }},
+  {p:['search for','search'], a:t=>{ const q=t.replace(/search for|search/gi,'').trim(); open2('https://www.google.com/search?q='+encodeURIComponent(q),'Searching: '+q); }},
+  {p:['time','what time'], a:()=>{ const t=new Date().toLocaleTimeString('en-IN'); speak('The time is '+t); document.getElementById('responseText').textContent='🕐 '+t; }},
+  {p:['date','today'],  a:()=>{ const d=new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'}); speak('Today is '+d); document.getElementById('responseText').textContent='📅 '+d; }},
+  {p:['stop','shut up','chup','quiet'], a:()=>{ stopSpeaking(); document.getElementById('responseText').textContent='Okay, stopped!'; }},
 ];
 
 function processCommand(text) {
-  setStatus('thinking', 'Processing...');
-  showTranscript(text);
-
+  setStatus('thinking','Processing...');
   const lower = text.toLowerCase();
-
-  // Check built-in commands first
-  for (const cmd of COMMANDS) {
-    if (cmd.patterns.some(p => lower.includes(p))) {
-      cmd.action(text);
-      return;
-    }
-  }
-
-  // AI query
+  for(const cmd of COMMANDS){ if(cmd.p.some(p=>lower.includes(p))){ cmd.a(text); return; } }
   askAI(text);
 }
 
-function openSite(url, msg) {
-  speak(msg);
-  showResponse(msg + ' → ' + url);
-  window.open(url, '_blank');
-  setTimeout(() => {
-    setStatus('', 'Tap orb or say "Hey Nova"');
-    setTimeout(startWakeWord, 500);
-  }, 2000);
+function open2(url,msg) {
+  speak(msg); document.getElementById('responseText').textContent='🌐 '+msg;
+  window.open(url,'_blank');
+  setTimeout(()=>{ setStatus('','Tap orb or say "Hey Nova"'); setTimeout(startWakeWord,500); },2500);
 }
 
-// ─── AI (GROQ → OPENROUTER FALLBACK) ────────────────────────────────────────
+// AI
 async function askAI(text) {
-  if (!settings.groqKey && !settings.orKey) {
-    speak('Please set up your API keys in Settings first.');
-    showResponse('⚠️ No API keys found. Open Settings (⚙) to add Groq or OpenRouter key.');
-    setStatus('', 'Tap orb or say "Hey Nova"');
-    setTimeout(startWakeWord, 1000);
-    return;
+  if(!settings.groqKey&&!settings.orKey){
+    speak('Please add API keys in Settings.');
+    document.getElementById('responseText').textContent='⚠️ API key nahi mili! ⚙ Settings open karo.';
+    setStatus('','Tap orb or say "Hey Nova"'); setTimeout(startWakeWord,1000); return;
   }
-
-  setStatus('thinking', 'Thinking...');
-  showResponse('Nova is thinking...');
-
-  let reply = null;
-
-  // Try Groq first
-  if (settings.groqKey) {
-    try {
-      reply = await callGroq(text);
-    } catch(e) {
-      console.warn('Groq failed:', e.message);
-    }
-  }
-
-  // Fallback to OpenRouter
-  if (!reply && settings.orKey) {
-    try {
-      reply = await callOpenRouter(text);
-    } catch(e) {
-      console.warn('OpenRouter failed:', e.message);
-    }
-  }
-
-  if (reply) {
-    showResponse(reply);
-    speak(reply);
-  } else {
-    const err = 'Sorry, I could not get a response. Please check your API keys.';
-    showResponse(err);
-    speak(err);
-    setStatus('', 'Tap orb or say "Hey Nova"');
-    setTimeout(startWakeWord, 1000);
+  setStatus('thinking','Thinking...');
+  document.getElementById('responseText').textContent='Nova soch rahi hai...';
+  let reply=null;
+  if(settings.groqKey){ try{reply=await callGroq(text)}catch(e){console.warn('Groq:',e.message);} }
+  if(!reply&&settings.orKey){ try{reply=await callOR(text)}catch(e){console.warn('OR:',e.message);} }
+  if(reply){ document.getElementById('responseText').textContent=reply; speak(reply); }
+  else {
+    const err='Sorry, response nahi mila. API keys check karo.';
+    document.getElementById('responseText').textContent=err; speak(err);
+    setStatus('','Tap orb or say "Hey Nova"'); setTimeout(startWakeWord,1000);
   }
 }
 
 async function callGroq(text) {
-  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + settings.groqKey
-    },
-    body: JSON.stringify({
-      model: 'llama3-8b-8192',
-      messages: [
-        { role: 'system', content: settings.sysPrompt },
-        { role: 'user', content: text }
-      ],
-      max_tokens: 200,
-      temperature: 0.7
-    })
+  const r = await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+settings.groqKey},
+    body:JSON.stringify({model:'llama3-8b-8192',messages:[{role:'system',content:settings.sysPrompt},{role:'user',content:text}],max_tokens:220,temperature:0.7})
   });
-  if (!res.ok) throw new Error('Groq error ' + res.status);
-  const data = await res.json();
-  return data.choices?.[0]?.message?.content?.trim();
+  if(!r.ok) throw new Error('Groq '+r.status);
+  return (await r.json()).choices?.[0]?.message?.content?.trim();
 }
 
-async function callOpenRouter(text) {
-  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + settings.orKey,
-      'HTTP-Referer': window.location.href,
-      'X-Title': 'Nova Voice Assistant'
-    },
-    body: JSON.stringify({
-      model: 'meta-llama/llama-3.1-8b-instruct:free',
-      messages: [
-        { role: 'system', content: settings.sysPrompt },
-        { role: 'user', content: text }
-      ],
-      max_tokens: 200
-    })
+async function callOR(text) {
+  const r = await fetch('https://openrouter.ai/api/v1/chat/completions',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+settings.orKey,'HTTP-Referer':window.location.href,'X-Title':'Nova'},
+    body:JSON.stringify({model:'meta-llama/llama-3.1-8b-instruct:free',messages:[{role:'system',content:settings.sysPrompt},{role:'user',content:text}],max_tokens:220})
   });
-  if (!res.ok) throw new Error('OpenRouter error ' + res.status);
-  const data = await res.json();
-  return data.choices?.[0]?.message?.content?.trim();
+  if(!r.ok) throw new Error('OR '+r.status);
+  return (await r.json()).choices?.[0]?.message?.content?.trim();
 }
 
-// ─── TTS ────────────────────────────────────────────────────────────────────
+// TTS
 function speak(text) {
-  stopSpeaking();
-  setStatus('speaking', 'Nova is speaking...');
-  showResponse(text);
-
-  const chunks = chunkText(text, 180);
-  speakChunks(chunks, 0);
+  stopSpeaking(); setStatus('speaking','Nova is speaking...');
+  updateVoice();
+  const chunks = chunkText(text,180);
+  speakChunks(chunks,0);
 }
 
-function chunkText(text, maxLen) {
-  const sentences = text.match(/[^.!?]+[.!?]*/g) || [text];
-  const chunks = [];
-  let current = '';
-  for (const s of sentences) {
-    if ((current + s).length > maxLen) {
-      if (current) chunks.push(current.trim());
-      current = s;
-    } else {
-      current += s;
-    }
-  }
-  if (current.trim()) chunks.push(current.trim());
-  return chunks.length ? chunks : [text];
+function chunkText(text,maxLen) {
+  const sents = text.match(/[^.!?।]+[.!?।]*/g)||[text];
+  const chunks=[]; let cur='';
+  for(const s of sents){ if((cur+s).length>maxLen){if(cur)chunks.push(cur.trim());cur=s;}else cur+=s; }
+  if(cur.trim()) chunks.push(cur.trim());
+  return chunks.length?chunks:[text];
 }
 
-function speakChunks(chunks, i) {
-  if (i >= chunks.length) {
-    setStatus('', 'Tap orb or say "Hey Nova"');
-    setTimeout(startWakeWord, 500);
-    return;
-  }
+function speakChunks(chunks,i) {
+  if(i>=chunks.length){ setStatus('','Tap orb or say "Hey Nova"'); setTimeout(startWakeWord,600); return; }
   const utt = new SpeechSynthesisUtterance(chunks[i]);
-  utt.lang = 'en-IN';
-  utt.rate = 1.0;
-  utt.pitch = 1.1;
-  utt.volume = 1.0;
-
-  // Try to pick a female voice
-  const voices = synth.getVoices();
-  const female = voices.find(v => v.lang.startsWith('en') && /female|woman|girl|zira|samantha|karen|moira|victoria/i.test(v.name));
-  if (female) utt.voice = female;
-
-  utt.onend = () => speakChunks(chunks, i + 1);
-  utt.onerror = () => speakChunks(chunks, i + 1);
-
-  currentUtterance = utt;
+  utt.lang='en-IN'; utt.rate=0.95; utt.pitch=1.15; utt.volume=1.0;
+  if(selectedVoice) utt.voice=selectedVoice;
+  utt.onend = ()=>speakChunks(chunks,i+1);
+  utt.onerror= ()=>speakChunks(chunks,i+1);
   synth.speak(utt);
 }
 
-function stopSpeaking() {
-  synth.cancel();
-  currentUtterance = null;
-}
+function stopSpeaking() { synth.cancel(); }
 </script>
 </body>
 </html>
