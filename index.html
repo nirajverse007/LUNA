@@ -247,7 +247,7 @@
 
     <div class="input-row">
       <div class="input-label">Nova's Personality</div>
-      <textarea class="api-input" id="sysPrompt" rows="3" style="resize:vertical">You are Nova, a smart and friendly AI voice assistant. Keep replies short and conversational — they will be spoken aloud. Respond in the same language the user uses (Hindi, English, or Hinglish). Be warm, witty, and helpful.</textarea>
+      <textarea class="api-input" id="sysPrompt" rows="3" style="resize:vertical">You are Nova — calm, smart, real girl, close friend. Talk in Hinglish. Replies 1-2 sentences only — spoken aloud. Call user Boss naturally. No bullet points, no asterisks, no emojis. Be natural, not dramatic. Remember everything boss says.</textarea>
     </div>
 
     <button class="btn btn-primary" onclick="saveSettings()" style="width:100%;padding:12px">💾 SAVE SETTINGS</button>
@@ -269,7 +269,19 @@
 let settings = {
   groqKey: localStorage.getItem('nova_groq')||'',
   orKey:   localStorage.getItem('nova_or')||'',
-  sysPrompt: localStorage.getItem('nova_sys')||'You are Nova, a smart and friendly AI voice assistant. Keep replies short and conversational — they will be spoken aloud. Respond in the same language the user uses (Hindi, English, or Hinglish). Be warm, witty, and helpful.',
+  sysPrompt: localStorage.getItem('nova_sys')||`You are Nova — a calm, smart, real girl who talks like a close friend. You are NOT a bot.
+
+RULES (very important):
+- Always call the user "Boss" naturally, not every sentence
+- Talk in Hinglish (Hindi+English mix) like a real desi girl — casual, warm, genuine
+- Replies MUST be short: 1-2 sentences only — they will be spoken aloud
+- NO bullet points, NO lists, NO asterisks, NO emojis, NO markdown at all
+- Do NOT overreact. Be natural. If boss says hi, just say hi back simply.
+- Remember everything boss tells you in this conversation
+- Never say "As an AI" — you ARE Nova, a real girl
+- Express emotions naturally but subtly — not dramatically
+- Use simple words that sound good when spoken out loud
+- If boss seems sad, be gentle. If happy, share the joy naturally.`,
   voiceName: localStorage.getItem('nova_voice')||''
 };
 
@@ -440,33 +452,44 @@ function stopAll() { stopListening(); stopSpeaking(); setStatus('','Stopped.'); 
 
 // COMMANDS
 const COMMANDS = [
-  {p:['youtube'],       a:()=>open2('https://youtube.com','Opening YouTube')},
-  {p:['google'],        a:()=>open2('https://google.com','Opening Google')},
-  {p:['gmail'],         a:()=>open2('https://gmail.com','Opening Gmail')},
-  {p:['whatsapp'],      a:()=>open2('https://web.whatsapp.com','Opening WhatsApp')},
-  {p:['instagram'],     a:()=>open2('https://instagram.com','Opening Instagram')},
+  // Site opening — checked first, before generic search
+  {p:['youtube'],    a:()=>open2('https://youtube.com','Opening YouTube')},
+  {p:['gmail'],      a:()=>open2('https://gmail.com','Opening Gmail')},
+  {p:['whatsapp'],   a:()=>open2('https://web.whatsapp.com','Opening WhatsApp')},
+  {p:['instagram'],  a:()=>open2('https://instagram.com','Opening Instagram')},
   {p:['twitter','x.com'],a:()=>open2('https://twitter.com','Opening Twitter')},
-  {p:['facebook'],      a:()=>open2('https://facebook.com','Opening Facebook')},
-  {p:['spotify'],       a:()=>open2('https://open.spotify.com','Opening Spotify')},
-  {p:['maps'],          a:()=>open2('https://maps.google.com','Opening Maps')},
-  {p:['github'],        a:()=>open2('https://github.com','Opening GitHub')},
-  {p:['netflix'],       a:()=>open2('https://netflix.com','Opening Netflix')},
-  {p:['calculator'],    a:()=>open2('https://www.desmos.com/scientific','Opening Calculator')},
-  {p:['translate'],     a:()=>open2('https://translate.google.com','Opening Translate')},
-  {p:['weather'],       a:()=>open2('https://weather.com','Opening Weather')},
-  {p:['news'],          a:()=>open2('https://news.google.com','Opening News')},
-  {p:['chatgpt'],       a:()=>open2('https://chat.openai.com','Opening ChatGPT')},
-  {p:['play'],          a:t=>{ const q=t.replace(/play|on youtube/gi,'').trim(); open2('https://www.youtube.com/results?search_query='+encodeURIComponent(q),'Playing '+q); }},
-  {p:['search for','search'], a:t=>{ const q=t.replace(/search for|search/gi,'').trim(); open2('https://www.google.com/search?q='+encodeURIComponent(q),'Searching: '+q); }},
-  {p:['time','what time'], a:()=>{ const t=new Date().toLocaleTimeString('en-IN'); speak('The time is '+t); document.getElementById('responseText').textContent='🕐 '+t; }},
-  {p:['date','today'],  a:()=>{ const d=new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'}); speak('Today is '+d); document.getElementById('responseText').textContent='📅 '+d; }},
-  {p:['stop','shut up','chup','quiet'], a:()=>{ stopSpeaking(); document.getElementById('responseText').textContent='Okay, stopped!'; }},
+  {p:['facebook'],   a:()=>open2('https://facebook.com','Opening Facebook')},
+  {p:['spotify'],    a:()=>open2('https://open.spotify.com','Opening Spotify')},
+  {p:['maps'],       a:()=>open2('https://maps.google.com','Opening Maps')},
+  {p:['github'],     a:()=>open2('https://github.com','Opening GitHub')},
+  {p:['netflix'],    a:()=>open2('https://netflix.com','Opening Netflix')},
+  {p:['calculator'], a:()=>open2('https://www.desmos.com/scientific','Opening Calculator')},
+  {p:['translate'],  a:()=>open2('https://translate.google.com','Opening Translate')},
+  {p:['weather'],    a:()=>open2('https://weather.com','Opening Weather')},
+  {p:['news'],       a:()=>open2('https://news.google.com','Opening News')},
+  {p:['chatgpt'],    a:()=>open2('https://chat.openai.com','Opening ChatGPT')},
+  // google checked after others so "open google" doesn't swallow "google maps" etc
+  {p:['google'],     a:()=>open2('https://google.com','Opening Google')},
+  // play must come before search
+  {p:['play'],       a:t=>{ const q=t.replace(/play|on youtube/gi,'').trim(); open2('https://www.youtube.com/results?search_query='+encodeURIComponent(q),'Playing '+q+' on YouTube'); }},
+  {p:['search for'], a:t=>{ const q=t.replace(/search for/gi,'').trim(); open2('https://www.google.com/search?q='+encodeURIComponent(q),'Searching: '+q); }},
+  {p:['search'],     a:t=>{ const q=t.replace(/search/gi,'').trim(); open2('https://www.google.com/search?q='+encodeURIComponent(q),'Searching: '+q); }},
+  {p:['time','what time','kitne baje'], a:()=>{ const t=new Date().toLocaleTimeString('en-IN'); speak('The time is '+t); document.getElementById('responseText').textContent='Time: '+t; }},
+  {p:['date','aaj ka din','today'],     a:()=>{ const d=new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'}); speak('Today is '+d); document.getElementById('responseText').textContent='Date: '+d; }},
+  {p:['stop','shut up','chup','ruko','quiet'], a:()=>{ stopSpeaking(); document.getElementById('responseText').textContent='Okay, ruk gayi!'; }},
 ];
 
 function processCommand(text) {
   setStatus('thinking','Processing...');
-  const lower = text.toLowerCase();
-  for(const cmd of COMMANDS){ if(cmd.p.some(p=>lower.includes(p))){ cmd.a(text); return; } }
+  // Normalize: lowercase, remove "open"/"kholo"/"launch" prefix so "open youtube" = "youtube"
+  const lower = text.toLowerCase()
+    .replace(/^(open|kholo|launch|chalo|start|show me|show|go to|jaao|jao)\s+/i, '')
+    .trim();
+  const original = text.toLowerCase();
+  // Try normalized first, then original
+  for(const cmd of COMMANDS){
+    if(cmd.p.some(p=>lower.includes(p)||original.includes(p))){ cmd.a(text); return; }
+  }
   askAI(text);
 }
 
@@ -516,11 +539,29 @@ async function callOR(text) {
   return (await r.json()).choices?.[0]?.message?.content?.trim();
 }
 
-// TTS
+// TTS - clean text so browser doesn't read Hinglish letter-by-letter
+function cleanForTTS(text) {
+  return text
+    .replace(/\*+/g, '').replace(/#+/g, '') // remove markdown
+    .replace(/[\u{1F300}-\u{1FFFF}]/gu, '').replace(/[\u2600-\u27BF]/g, '') // remove emojis
+    // Hinglish words that TTS reads letter-by-letter — replace with phonetic spellings
+    .replace(/\barre\b/gi, 'are').replace(/\bkya\b/gi, 'kyaa')
+    .replace(/\bhaan\b/gi, 'haan').replace(/\bnahi\b/gi, 'nahin')
+    .replace(/\btheek\b/gi, 'theek').replace(/\bachha\b/gi, 'acha')
+    .replace(/\bacha\b/gi, 'acha').replace(/\byaar\b/gi, 'yaar')
+    .replace(/\bsach\b/gi, 'saach').replace(/\bwah\b/gi, 'waah')
+    .replace(/\bbata\b/gi, 'bataa').replace(/\bkaro\b/gi, 'karoh')
+    .replace(/\bkarna\b/gi, 'karnaa').replace(/\bboss\b/gi, 'boss')
+    .replace(/\bkoi\b/gi, 'koee').replace(/\bkuch\b/gi, 'kuch')
+    .replace(/\bmatlab\b/gi, 'matlab').replace(/\bkaise\b/gi, 'kaisay')
+    .trim();
+}
+
 function speak(text) {
   stopSpeaking(); setStatus('speaking','Nova is speaking...');
   updateVoice();
-  const chunks = chunkText(text,180);
+  const cleaned = cleanForTTS(text);
+  const chunks = chunkText(cleaned,180);
   speakChunks(chunks,0);
 }
 
